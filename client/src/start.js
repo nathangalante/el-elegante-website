@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom";
+// import ErrorBoundary from "./errorBoundary";
+import App from "./app";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("main"));
+ReactDOM.render(<App />, document.querySelector("main"));
 
-function HelloWorld() {
-    return <div>Hello, World!</div>;
-}
