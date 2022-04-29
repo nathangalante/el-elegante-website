@@ -26,3 +26,13 @@ body {
     padding-top: 0px;
     padding-bottom: 0px;
 }
+
+.searchBar {
+    position: absolute;
+    top: 0;
+}
+
+.setCover {
+    height: 100px;
+    width: 105px;
+}

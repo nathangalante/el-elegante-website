@@ -1,4 +1,6 @@
 export default function AllSets(props) {
+
+        
     return (
         <>
             <div className="setsHome">
@@ -13,8 +15,7 @@ export default function AllSets(props) {
                             >
                                 <img
                                     src={"/rosa7.png"}
-                                    height={180}
-                                    width={190}
+                                    className="setCover"
                                 />
                                 <p>{set.name}</p>
                             </div>
