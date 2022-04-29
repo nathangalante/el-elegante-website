@@ -43,6 +43,7 @@ export default class App extends Component {
         });
     }
     render() {
+        console.log("state on render app", this.state);
         return (
             <>
                 <h1>El Elegante Podcast</h1>
@@ -51,7 +52,7 @@ export default class App extends Component {
                     updateSelectedState={this.updateSelectedState}
                     updateSets={this.updateSets}
                 />
-                <Set url={this.state.selectedSet.url} />
+                <Set url={this.state.selectedSet?.url} />
                 <AllSets
                     sets={this.state.sets}
                     updateSelectedState={this.updateSelectedState}

@@ -10,3 +10,13 @@ exports.getDataForWidget = () => {
         ORDER BY id`
     );
 };
+
+exports.retrieveMatchingSets = (search) => {
+    return db.query(
+        `
+      SELECT * FROM podcasts
+        WHERE name ILIKE $1
+  `,
+        [search + "%"]
+    );
+};
