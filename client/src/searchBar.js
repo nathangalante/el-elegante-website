@@ -2,18 +2,14 @@ import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 
 export default function SearchBar(props) {
-    console.log("props:????", props);
     const [initialSets, setInitialSets] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [sets, setSets] = useState("");
 
     useEffect(() => {
-        fetch("/image")
+        fetch("/sets")
             .then((res) => res.json())
             .then(({ rows }) => {
-                console.log("rows on sets//////", rows);
-                // setSets(rows);
-                // props.updateSets(sets);
                 setInitialSets(rows);
             });
     }, []);
@@ -27,7 +23,6 @@ export default function SearchBar(props) {
                 .then((res) => res.json())
                 .then(({ rows }) => {
                     if (!abort) {
-                        console.log("this are users", sets);
                         setSets(rows);
                         props.updateSets(sets);
                     }

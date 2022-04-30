@@ -1,6 +1,4 @@
 export default function AllSets(props) {
-
-        
     return (
         <>
             <div className="setsHome">
@@ -13,11 +11,13 @@ export default function AllSets(props) {
                                     props.updateSelectedState(set.id)
                                 }
                             >
-                                <img
-                                    src={"/rosa7.png"}
-                                    className="setCover"
-                                />
                                 <p>{set.name}</p>
+                                <img src={"/rosa7.png"} className="setCover" />
+                                <div className="tags">
+                                    <p className="genreBox">Disco</p>
+                                    <p className="genreBox">House</p>
+                                    <p className="genreBox">Techno</p>
+                                </div>
                             </div>
                         </div>
                     ))}

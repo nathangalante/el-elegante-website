@@ -1,4 +1,6 @@
-DROP TABLE IF EXISTS users
+DROP TABLE IF EXISTS podcasts;
+DROP TABLE IF EXISTS genres;
+DROP TABLE IF EXISTS moods;
 
 CREATE TABLE podcasts (
     id SERIAL PRIMARY KEY,
@@ -6,6 +8,19 @@ CREATE TABLE podcasts (
     url VARCHAR NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
+
+CREATE TABLE genres (
+    id SERIAL PRIMARY KEY, 
+    user_id INT,
+    genre_1 VARCHAR NOT NULL,
+    genre_2 VARCHAR NOT NULL,
+    genre_3 VARCHAR NOT NULL
+);
+
+CREATE TABLE moods (
+    id SERIAL PRIMARY KEY, 
+    mood VARCHAR NOT NULL
+);
 
 INSERT INTO podcasts (url, name)
 VALUES ('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1140824068&color=%23676767&inverse=true&auto_play=false&show_user=true', 'Bubbles 20 by collider'),
@@ -70,3 +85,11 @@ VALUES ('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/track
 ('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/588610509&color=%23676767&inverse=true&auto_play=false&show_user=true', 'Mannequin Radio 03 by Galante El Elegante'),
 ('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/588602955&color=%23676767&inverse=true&auto_play=false&show_user=true', 'Mannequin Radio 02 by Galante El Elegante'),
 ('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/586590417&color=%23676767&inverse=true&auto_play=false&show_user=true', 'Mannequin Radio 01 by Galante El Elegante');
+
+INSERT INTO moods (mood)
+VALUES ('Burning The Dancefloor'),
+('A Little Laze On The Couch'),
+('Cheeky Drinks At The Bar'),
+('Laughter Under The Sun'),
+('Stop Drinking And Study!'),
+('Trippy In The Park');

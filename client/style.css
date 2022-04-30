@@ -36,3 +36,22 @@ body {
     height: 100px;
     width: 105px;
 }
+
+.genreBox {
+    background-color: black;
+    color: white;
+    height: 20px;
+    width: 70px;
+    justify-self: center;
+}
+
+.tags {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    text-align: center;
+}
+
+.setMood {
+    border: 2px black solid;
+}

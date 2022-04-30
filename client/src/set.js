@@ -5,7 +5,7 @@ export default function Set(props) {
                 <iframe
                     width="320px"
                     className="widget"
-                    height="160"
+                    height="160px"
                     scrolling="no"
                     position="sticky"
                     top="0"
