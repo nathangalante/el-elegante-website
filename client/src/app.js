@@ -13,19 +13,20 @@ export default class App extends Component {
         this.state = {
             sets: [],
             selectedSet: {},
-            moreButton: true,
-            lowestId: null,
+            genre: [],
         };
         this.updateSelectedState = this.updateSelectedState.bind(this);
         this.updateSets = this.updateSets.bind(this);
         this.getMoreSets = this.getMoreSets.bind(this);
+        this.renderNewSets = this.renderNewSets.bind(this);
     }
+
     componentDidMount() {
         // console.log("component did mount", this.state);
         fetch("/sets")
             .then((res) => res.json())
             .then(({ rows }) => {
-                // console.log("data on image", rows);
+                console.log("data on sets", rows);
                 this.setState({ sets: rows }, () =>
                     this.setState({
                         selectedSet: this.state.sets[0],
@@ -43,6 +44,12 @@ export default class App extends Component {
         });
     }
 
+    renderNewSets(newSets) {
+        this.setState({
+            sets: [...this.sets, newSets].flat(),
+        });
+    }
+
     updateSets(newSet) {
         this.setState({
             sets: newSet,
@@ -50,17 +57,17 @@ export default class App extends Component {
     }
 
     getMoreSets() {
-        this.id = this.sets[this.state.sets.length].id + 6;
-        console.log("this state get more sets: ", this.state.sets.length);
-        console.log("state on getMoreSets", this.state);
-        console.log("lowestID: ", this.state.lowestId);
-        fetch(`/sets/${this.id}`)
+        console.log("this state get more sets: ", this.state.sets);
+        const lastId = this.state.sets[this.state.sets.length - 1].id;
+        console.log("state on getMoreSets", lastId);
+        fetch(`/moreSets/${lastId}`)
             .then((res) => res.json())
-            .then((data) => {
-                console.log("rows-->", data);
-                for (let i = 0; i < data.length; i++) {
-                    this.state.sets.push(data[i]);
-                }
+            .then((moreSets) => {
+                let nextBatch = moreSets.rows;
+                console.log("nextBatch", nextBatch);
+                console.log("moreSets----", moreSets);
+                this.setState({ sets: [...this.state.sets, nextBatch].flat() });
+                console.log("this sets on getMoreSets*****", this.state.sets);
             })
             .catch((err) => {
                 console.log(err);
@@ -71,9 +78,8 @@ export default class App extends Component {
         return (
             <>
                 <h1>El Elegante Podcast</h1>
-                <h1> Hier is Radio</h1>
                 <BrowserRouter>
-                    <Route exact path="/find-users">
+                    <Route exact path="/moods">
                         <Moods />
                     </Route>
                     <Link to="/moods">Moods</Link>
@@ -84,10 +90,11 @@ export default class App extends Component {
                     updateSets={this.updateSets}
                 />
                 <Set url={this.state.selectedSet?.url} />
-                <button onClick={this.getMoreSets}>More</button>
                 <AllSets
                     sets={this.state.sets}
                     updateSelectedState={this.updateSelectedState}
+                    getMoreSets={this.getMoreSets}
+                    genre={this.state.genre}
                 />
             </>
         );

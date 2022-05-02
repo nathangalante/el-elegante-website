@@ -19,10 +19,12 @@ app.get("/sets", (req, res) => {
         });
 });
 
-app.get("/find-sets/:search", (req, res) => {
-    db.retrieveMatchingSets(req.params.search)
-        .then(({ rows }) => {
-            res.json({ rows });
+app.get("/moreSets/:search", (req, res) => {
+    const lastId = req.params.search;
+    db.getMoreSets(lastId)
+        .then((data) => {
+            console.log("rows when we try to find sets: ", data);
+            res.json(data);
         })
         .catch((err) => {
             console.log(err);
@@ -35,6 +37,16 @@ app.get("/sets/:lowestId", (req, res) => {
         .then(({ rows }) => {
             console.log("rows", rows);
             res.json(rows);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
+app.get("/find-sets/:search", (req, res) => {
+    db.retrieveMatchingSets(req.params.search)
+        .then(({ rows }) => {
+            res.json({ rows });
         })
         .catch((err) => {
             console.log(err);

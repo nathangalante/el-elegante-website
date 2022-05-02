@@ -8,28 +8,24 @@ exports.getDataForWidget = () => {
     return db.query(
         `SELECT * FROM podcasts
         ORDER BY id
-        `
+        LIMIT 3`
     );
 };
 
 exports.retrieveMatchingSets = (search) => {
     return db.query(
-        `
-      SELECT * FROM podcasts
-        WHERE name ILIKE $1
-  `,
-        [search + "%"]
+        `SELECT * FROM podcasts
+        WHERE name ILIKE $1`,
+        ["%" + search + "%"]
     );
 };
 
 exports.getMoreSets = (lastId) => {
     return db.query(
-        `SELECT id, name, url, 
-        (SELECT id FROM podcasts ORDER BY id ASC LIMIT 1) AS "lowestId" 
-        FROM podcasts 
-        WHERE id < $1 
-        ORDER BY id DESC 
-        LIMIT 3;`,
+        `SELECT * FROM podcasts
+        WHERE id > $1
+        ORDER BY id ASC
+        LIMIT 6`,
         [lastId]
     );
 };
