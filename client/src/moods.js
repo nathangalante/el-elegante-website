@@ -1,19 +1,34 @@
-export default function Moods(props) {
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+export default function Moods() {
+    const [moods, setMoods] = useState([]);
+    function getMoods() {
+        fetch("/moods")
+            .then((res) => res.json())
+            .then((moods) => {
+                console.log("moods----->", moods.rows);
+                setMoods(moods.rows);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    useEffect(() => {
+        getMoods();
+    }, []);
+
     return (
         <>
             <div className="moods">
-                {props.moods &&
-                    props.moods.map((mood) => (
-                        <div key={mood.id}>
-                            <div
-                                className="setMood"
-                                onClick={() =>
-                                    props.updateSelectedState(mood.id)
-                                }
-                            >
-                                <p>{mood.name}</p>
+                {moods &&
+                    moods.map((mood) => (
+                        <Link to={`/pick-moods/${mood.id}`} key={mood.id}>
+                            <div className="setMood">
+                                <p>{mood.mood}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
             </div>
         </>

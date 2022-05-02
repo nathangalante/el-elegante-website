@@ -20,13 +20,22 @@ exports.retrieveMatchingSets = (search) => {
     );
 };
 
-exports.getMoreSets = (lastId) => {
+exports.getMoreSets = (lastId, searchQuery) => {
+    if (!searchQuery) {
+        return db.query(
+            `SELECT * FROM podcasts
+            WHERE id > $1
+            ORDER BY id ASC
+            LIMIT 6`,
+            [lastId]
+        );
+    }
     return db.query(
         `SELECT * FROM podcasts
-        WHERE id > $1
-        ORDER BY id ASC
-        LIMIT 6`,
-        [lastId]
+            WHERE id > $1 AND name ILIKE $2
+            ORDER BY id ASC
+            LIMIT 6`,
+        [lastId, "%" + searchQuery + "%"]
     );
 };
 
@@ -34,6 +43,24 @@ exports.getMoods = () => {
     return db.query(
         `SELECT * FROM moods
         ORDER BY id`
+    );
+};
+
+exports.getMoodById = (id) => {
+    return db.query(
+        `SELECT * FROM moods
+        WHERE id = $1
+        ORDER BY id`,
+        [id]
+    );
+};
+
+exports.getSetsByMood = (moodId) => {
+    return db.query(
+        `SELECT * FROM podcasts
+        WHERE mood = $1
+        ORDER BY id`,
+        [moodId]
     );
 };
 

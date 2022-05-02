@@ -21,7 +21,8 @@ app.get("/sets", (req, res) => {
 
 app.get("/moreSets/:search", (req, res) => {
     const lastId = req.params.search;
-    db.getMoreSets(lastId)
+    const searchQuery = req.query.searchQuery;
+    db.getMoreSets(lastId, searchQuery)
         .then((data) => {
             console.log("rows when we try to find sets: ", data);
             res.json(data);
@@ -57,6 +58,30 @@ app.get("/moods", (req, res) => {
     db.getMoods()
         .then(({ rows }) => {
             console.log("rows in moods!: ", rows);
+            res.json({ rows });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json({ success: false });
+        });
+});
+
+app.get("/moods/:id", (req, res) => {
+    db.getMoodById(req.params.id)
+        .then(({ rows }) => {
+            console.log("rows in moods/:id!: ", rows);
+            res.json({ rows });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json({ success: false });
+        });
+});
+
+app.get("/mood-sets/:id", (req, res) => {
+    db.getSetsByMood(req.params.id)
+        .then(({ rows }) => {
+            console.log("rows in moods-sets/:id!: ", rows);
             res.json({ rows });
         })
         .catch((err) => {

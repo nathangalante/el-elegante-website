@@ -7,6 +7,8 @@ CREATE TABLE podcasts (
     name VARCHAR NOT NULL,
     url VARCHAR NOT NULL,
     genre VARCHAR,
+    mood INT,
+    FOREIGN KEY(mood) REFERENCES moods(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

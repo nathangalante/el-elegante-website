@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 export default function SearchBar(props) {
     const [initialSets, setInitialSets] = useState("");
-    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         fetch("/sets")
@@ -15,11 +14,11 @@ export default function SearchBar(props) {
 
     useEffect(() => {
         let abort;
-        if (!searchTerm) {
+        if (!props.searchTerm) {
             props.updateSets(initialSets);
         } else {
-            console.log("searchterm inside else: ", searchTerm);
-            fetch(`/find-sets/${searchTerm}`)
+            console.log("searchterm inside else: ", props.searchTerm);
+            fetch(`/find-sets/${props.searchTerm}`)
                 .then((res) => res.json())
                 .then(({ rows }) => {
                     console.log(
@@ -32,7 +31,7 @@ export default function SearchBar(props) {
                 });
             return () => (abort = true);
         }
-    }, [searchTerm]);
+    }, [props.searchTerm]);
 
     return (
         <>
@@ -40,7 +39,7 @@ export default function SearchBar(props) {
                 className="searchBar"
                 type="text"
                 placeholder="Search here"
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => props.setSearchTerm(e.target.value)}
             />
         </>
     );
