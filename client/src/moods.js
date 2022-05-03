@@ -22,19 +22,16 @@ export default function Moods() {
 
     return (
         <>
-            <p className="fontMoods">Get In the Mood With These Moods</p>
+            <p className="fontMoods">Get In the Mood</p>
             <div className="moods">
                 {moods &&
-                    moods.map((mood) => {
-                        console.log("this is Mooooooood!!!", mood);
-                        return (
-                            <Link to={`/pick-moods/${mood.id}`} key={mood.id}>
-                                <div className="setMood">
-                                    <p className="textArea">{mood.name}</p>
-                                </div>
-                            </Link>
-                        );
-                    })}
+                    moods.map((mood) => (
+                        <Link to={`/pick-moods/${mood.id}`} key={mood.id}>
+                            <div className="setMood">
+                                <p className="textArea">{mood.mood}</p>
+                            </div>
+                        </Link>
+                    ))}
             </div>
         </>
     );

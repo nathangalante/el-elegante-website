@@ -8,7 +8,7 @@ exports.getDataForWidget = () => {
     return db.query(
         `SELECT * FROM podcasts
         ORDER BY id
-        LIMIT 8`
+        LIMIT 6`
     );
 };
 exports.lengthGetDataForWidget = () => {
@@ -34,7 +34,7 @@ exports.getMoreSets = (lastId, searchQuery) => {
             FROM podcasts
             WHERE id > $1
             ORDER BY id ASC
-            LIMIT 8`,
+            LIMIT 6`,
             [lastId]
         );
     }
@@ -42,7 +42,7 @@ exports.getMoreSets = (lastId, searchQuery) => {
         `SELECT * FROM podcasts
             WHERE id > $1 AND name ILIKE $2
             ORDER BY id ASC
-            LIMIT 8`,
+            LIMIT 6`,
         [lastId, "%" + searchQuery + "%"]
     );
 };
@@ -65,7 +65,7 @@ exports.getMoodById = (id) => {
 
 exports.getSetsByMood = (moodId) => {
     return db.query(
-        `SELECT * 
+        `SELECT podcasts.id, podcasts.name, podcasts.url, podcasts.genre, podcasts.mood, moods.id AS mood_id, moods.mood
         FROM podcasts
         JOIN moods
         ON moods.id = podcasts.mood

@@ -23,7 +23,7 @@ export default function AllSets(props) {
                                 >
                                     <p>{set.name}</p>
                                     <img
-                                        src={"/rosa7.png"}
+                                        src={"/ejo02.png"}
                                         className="setCover"
                                     />
                                 </div>
@@ -47,7 +47,8 @@ export default function AllSets(props) {
             </div>
             <div className="buttonMiddle">
                 {!props.searchTerm &&
-                    props.sets[props.sets.length - 1]?.id != 62 && (
+                    props.sets[props.sets.length - 1]?.id != 62 &&
+                    props.sets.length >= 5 && (
                         <button onClick={props.getMoreSets}>More</button>
                     )}
             </div>

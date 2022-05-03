@@ -38,7 +38,7 @@ export default function SearchBar(props) {
             <div className="searchBar">
                 <input
                     type="text"
-                    placeholder="Search here"
+                    placeholder="Search sets here"
                     onChange={(e) => props.setSearchTerm(e.target.value)}
                 />
             </div>

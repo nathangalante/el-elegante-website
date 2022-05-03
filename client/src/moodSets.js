@@ -11,9 +11,9 @@ export default function MoodSets(props) {
         fetch(`/mood-sets/${id}`)
             .then((res) => res.json())
             .then((moodSets) => {
-                console.log("moods----====->", moodSets.rows[0].name);
-                setMoodSets(moodSets.rows);
-                setMoodName(moodSets.rows[0].name);
+                console.log("moods----====->", moodSets[0].mood);
+                setMoodSets(moodSets);
+                setMoodName(moodSets[0].mood);
             })
             .catch((err) => {
                 console.log(err);
@@ -27,7 +27,7 @@ export default function MoodSets(props) {
     return (
         <>
             {moodName && <p className="moodBar">{moodName}</p>}
-            <div className="setsHome">
+            <div className="setsHomeMoods">
                 {moodSets &&
                     moodSets.map((moodSet) => {
                         // console.log({ set });
@@ -37,8 +37,6 @@ export default function MoodSets(props) {
                                 .replaceAll("{", "")
                                 .replaceAll("}", "")
                                 .split(",");
-                        console.log("splittedgenres------->", splittedGenres);
-                        // console.log("moodSet------->", moodSet);
                         return (
                             <div key={moodSet.id} className="setHome">
                                 <div
@@ -53,10 +51,20 @@ export default function MoodSets(props) {
                                 >
                                     <p>{moodSet.name}</p>
                                     <img
-                                        src={"/rosa7.png"}
-                                        className="setCover"
+                                        src={"/dingdong18.png"}
+                                        className="setCoverMoods"
                                     />
                                 </div>
+                                {/* <div className="buttonMiddle">
+                                    {!props.searchTerm &&
+                                        props.sets[props.sets.length - 1]?.id !=
+                                            62 &&
+                                        props.sets.length >= 5 && (
+                                            <button onClick={props.getMoreSets}>
+                                                More
+                                            </button>
+                                        )}
+                                </div> */}
                                 {/* <div className="tags">
                                     {splittedGenres &&
                                         splittedGenres.map((genre) => (

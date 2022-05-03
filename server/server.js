@@ -66,23 +66,25 @@ app.get("/moods", (req, res) => {
         });
 });
 
-app.get("/moods/:id", (req, res) => {
-    db.getMoodById(req.params.id)
-        .then(({ rows }) => {
-            console.log("rows in moods/:id!: ", rows);
-            res.json({ rows });
-        })
-        .catch((err) => {
-            console.log(err);
-            res.json({ success: false });
-        });
-});
+// app.get("/moods/:id", (req, res) => {
+//     db.getSetsByMood(req.params.id)
+//         .then(({ rows }) => {
+//             console.log("rows in moods/:id!: ", rows);
+//             res.json({ rows });
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//             res.json({ success: false });
+//         });
+// });
 
 app.get("/mood-sets/:id", (req, res) => {
-    db.getSetsByMood(req.params.id)
+    const { id } = req.params;
+    console.log("req.params", req.params);
+    db.getSetsByMood(id)
         .then(({ rows }) => {
-            console.log("rows in moods-sets/:id!: ", rows);
-            res.json({ rows });
+            console.log("rows in moods-sets/:id!: ", { rows });
+            res.json(rows);
         })
         .catch((err) => {
             console.log(err);

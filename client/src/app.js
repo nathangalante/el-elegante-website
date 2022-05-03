@@ -7,6 +7,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Moods from "./moods";
 import MoodSets from "./moodSets";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 export default class App extends Component {
     constructor(props) {
@@ -29,8 +30,6 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        // console.log("component did mount", this.state);
-
         fetch("/sets")
             .then((res) => res.json())
             .then(({ rows }) => {
@@ -77,17 +76,12 @@ export default class App extends Component {
     }
 
     getMoreSets() {
-        // console.log("this state get more sets: ", this.state.sets);
         const lastId = this.state.sets[this.state.sets.length - 1].id;
-        console.log("state on getMoreSets----=+", lastId);
         fetch(`/moreSets/${lastId}?searchQuery=${this.state.searchTerm}`)
             .then((res) => res.json())
             .then((moreSets) => {
                 let nextBatch = moreSets.rows;
-                console.log("nextBatch", nextBatch);
-                console.log("moreSets----", moreSets);
                 this.setState({ sets: [...this.state.sets, nextBatch].flat() });
-                console.log("this sets on getMoreSets*****", this.state.sets);
             })
             .catch((err) => {
                 console.log(err);
@@ -120,8 +114,11 @@ export default class App extends Component {
         return (
             <>
                 <BrowserRouter>
-                    <img src="/elegante2.jpg" className="photo"></img>
-
+                    {history.reload && (
+                        <Link to="/">
+                            <img src="/elegante2.jpg" className="photo"></img>
+                        </Link>
+                    )}
                     <Route exact path="/">
                         <div className="topBar">
                             <SearchBar
@@ -129,9 +126,12 @@ export default class App extends Component {
                                 searchTerm={this.state.searchTerm}
                                 setSearchTerm={this.setSearchTerm}
                             />
-                            <div className="title">
+                            {/* <Link to="/"> */}
+                            <img src="/rosa7.png" className="titlePhoto" />
+                            {/* </Link> */}
+                            {/* <div className="title">
                                 <h1>El Elegante Podcast</h1>
-                            </div>
+                            </div> */}
 
                             <div className="moodLink">
                                 <Link to="/pick-moods">Moods</Link>
@@ -147,7 +147,7 @@ export default class App extends Component {
                         />
                     </Route>
                     <Route exact path="/pick-moods">
-                        {/* <p>{this.state.moodSetName}</p> */}
+                        <p>{this.state.moodSetName}</p>
                         <Moods moods={this.state.moods} />
                     </Route>
                     <Route exact path="/pick-moods/:id">
