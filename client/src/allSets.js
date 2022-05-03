@@ -1,9 +1,9 @@
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function AllSets(props) {
-    console.log("test", props.sets);
     return (
         <>
+            {props.genre && <p className="genre">{props.genre}</p>}
             <div className="setsHome">
                 {props.sets &&
                     props.sets.map((set) => {
@@ -14,8 +14,6 @@ export default function AllSets(props) {
                                 .replaceAll("{", "")
                                 .replaceAll("}", "")
                                 .split(",");
-                        console.log("splittedgenres------->", splittedGenres);
-                        console.log("set------->", set);
                         return (
                             <div key={set.id} className="setHome">
                                 <div
@@ -46,9 +44,12 @@ export default function AllSets(props) {
                             </div>
                         );
                     })}
-                {!props.searchTerm && (
-                    <button onClick={props.getMoreSets}>More</button>
-                )}
+            </div>
+            <div className="buttonMiddle">
+                {!props.searchTerm &&
+                    props.sets[props.sets.length - 1]?.id != 62 && (
+                        <button onClick={props.getMoreSets}>More</button>
+                    )}
             </div>
         </>
     );

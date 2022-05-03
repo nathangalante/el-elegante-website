@@ -35,12 +35,13 @@ export default function SearchBar(props) {
 
     return (
         <>
-            <input
-                className="searchBar"
-                type="text"
-                placeholder="Search here"
-                onChange={(e) => props.setSearchTerm(e.target.value)}
-            />
+            <div className="searchBar">
+                <input
+                    type="text"
+                    placeholder="Search here"
+                    onChange={(e) => props.setSearchTerm(e.target.value)}
+                />
+            </div>
         </>
     );
 }

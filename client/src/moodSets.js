@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 export default function MoodSets(props) {
     const [moodSets, setMoodSets] = useState([]);
+    const [moodName, setMoodName] = useState("");
 
     let { id } = useParams();
 
@@ -10,8 +11,9 @@ export default function MoodSets(props) {
         fetch(`/mood-sets/${id}`)
             .then((res) => res.json())
             .then((moodSets) => {
-                console.log("moods----->", moodSets.rows);
+                console.log("moods----====->", moodSets.rows[0].name);
                 setMoodSets(moodSets.rows);
+                setMoodName(moodSets.rows[0].name);
             })
             .catch((err) => {
                 console.log(err);
@@ -24,6 +26,7 @@ export default function MoodSets(props) {
 
     return (
         <>
+            {moodName && <p className="moodBar">{moodName}</p>}
             <div className="setsHome">
                 {moodSets &&
                     moodSets.map((moodSet) => {
@@ -35,15 +38,16 @@ export default function MoodSets(props) {
                                 .replaceAll("}", "")
                                 .split(",");
                         console.log("splittedgenres------->", splittedGenres);
-                        console.log("moodSet------->", moodSet);
+                        // console.log("moodSet------->", moodSet);
                         return (
                             <div key={moodSet.id} className="setHome">
                                 <div
                                     onClick={() => {
-                                        console.log({ moodSet });
+                                        console.log("Moooooood", { moodSet });
                                         props.updateSelectedSetInMoods(
                                             moodSet.id,
-                                            moodSets
+                                            moodSets,
+                                            moodSet.name
                                         );
                                     }}
                                 >
@@ -53,14 +57,14 @@ export default function MoodSets(props) {
                                         className="setCover"
                                     />
                                 </div>
-                                <div className="tags">
+                                {/* <div className="tags">
                                     {splittedGenres &&
                                         splittedGenres.map((genre) => (
                                             <p className="genreBox" key={genre}>
                                                 {genre}
                                             </p>
                                         ))}
-                                </div>
+                                </div> */}
                             </div>
                         );
                     })}

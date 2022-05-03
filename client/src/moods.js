@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Moods() {
     const [moods, setMoods] = useState([]);
+
     function getMoods() {
         fetch("/moods")
             .then((res) => res.json())
@@ -21,15 +22,19 @@ export default function Moods() {
 
     return (
         <>
+            <p className="fontMoods">Get In the Mood With These Moods</p>
             <div className="moods">
                 {moods &&
-                    moods.map((mood) => (
-                        <Link to={`/pick-moods/${mood.id}`} key={mood.id}>
-                            <div className="setMood">
-                                <p>{mood.mood}</p>
-                            </div>
-                        </Link>
-                    ))}
+                    moods.map((mood) => {
+                        console.log("this is Mooooooood!!!", mood);
+                        return (
+                            <Link to={`/pick-moods/${mood.id}`} key={mood.id}>
+                                <div className="setMood">
+                                    <p className="textArea">{mood.name}</p>
+                                </div>
+                            </Link>
+                        );
+                    })}
             </div>
         </>
     );

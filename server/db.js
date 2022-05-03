@@ -8,7 +8,13 @@ exports.getDataForWidget = () => {
     return db.query(
         `SELECT * FROM podcasts
         ORDER BY id
-        LIMIT 3`
+        LIMIT 8`
+    );
+};
+exports.lengthGetDataForWidget = () => {
+    return db.query(
+        `SELECT * FROM podcasts
+        ORDER BY id`
     );
 };
 
@@ -23,10 +29,12 @@ exports.retrieveMatchingSets = (search) => {
 exports.getMoreSets = (lastId, searchQuery) => {
     if (!searchQuery) {
         return db.query(
-            `SELECT * FROM podcasts
+            `SELECT *, (SELECT id FROM podcasts 
+            ORDER BY id DESC LIMIT 1) AS "highestId"
+            FROM podcasts
             WHERE id > $1
             ORDER BY id ASC
-            LIMIT 6`,
+            LIMIT 8`,
             [lastId]
         );
     }
@@ -34,7 +42,7 @@ exports.getMoreSets = (lastId, searchQuery) => {
         `SELECT * FROM podcasts
             WHERE id > $1 AND name ILIKE $2
             ORDER BY id ASC
-            LIMIT 6`,
+            LIMIT 8`,
         [lastId, "%" + searchQuery + "%"]
     );
 };
@@ -57,9 +65,13 @@ exports.getMoodById = (id) => {
 
 exports.getSetsByMood = (moodId) => {
     return db.query(
-        `SELECT * FROM podcasts
-        WHERE mood = $1
-        ORDER BY id`,
+        `SELECT * 
+        FROM podcasts
+        JOIN moods
+        ON moods.id = podcasts.mood
+        WHERE podcasts.mood = $1
+        ORDER BY podcasts.id
+        `,
         [moodId]
     );
 };

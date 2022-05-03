@@ -54,11 +54,13 @@ export default class App extends Component {
         });
     }
 
-    updateSelectedSetInMoods(id, moodsSets) {
+    updateSelectedSetInMoods(id, moodsSets, moodSetName) {
+        console.log("moodSetName====>:", moodSetName);
         this.setState({
             selectedSet: moodsSets.find((set) => {
                 return set.id === id;
             }),
+            moodSetName,
         });
     }
 
@@ -77,15 +79,15 @@ export default class App extends Component {
     getMoreSets() {
         // console.log("this state get more sets: ", this.state.sets);
         const lastId = this.state.sets[this.state.sets.length - 1].id;
-        // console.log("state on getMoreSets", lastId);
+        console.log("state on getMoreSets----=+", lastId);
         fetch(`/moreSets/${lastId}?searchQuery=${this.state.searchTerm}`)
             .then((res) => res.json())
             .then((moreSets) => {
                 let nextBatch = moreSets.rows;
-                // console.log("nextBatch", nextBatch);
-                // console.log("moreSets----", moreSets);
+                console.log("nextBatch", nextBatch);
+                console.log("moreSets----", moreSets);
                 this.setState({ sets: [...this.state.sets, nextBatch].flat() });
-                // console.log("this sets on getMoreSets*****", this.state.sets);
+                console.log("this sets on getMoreSets*****", this.state.sets);
             })
             .catch((err) => {
                 console.log(err);
@@ -117,9 +119,35 @@ export default class App extends Component {
             });
         return (
             <>
-                <h1>El Elegante Podcast</h1>
                 <BrowserRouter>
+                    <img src="/elegante2.jpg" className="photo"></img>
+
+                    <Route exact path="/">
+                        <div className="topBar">
+                            <SearchBar
+                                updateSets={this.updateSets}
+                                searchTerm={this.state.searchTerm}
+                                setSearchTerm={this.setSearchTerm}
+                            />
+                            <div className="title">
+                                <h1>El Elegante Podcast</h1>
+                            </div>
+
+                            <div className="moodLink">
+                                <Link to="/pick-moods">Moods</Link>
+                            </div>
+                        </div>
+                        <AllSets
+                            sets={setsFilteredByGenre}
+                            updateSelectedSet={this.updateSelectedSet}
+                            getMoreSets={this.getMoreSets}
+                            setsByGenre={this.setsByGenre}
+                            searchTerm={this.state.searchTerm}
+                            genre={this.state.genre}
+                        />
+                    </Route>
                     <Route exact path="/pick-moods">
+                        {/* <p>{this.state.moodSetName}</p> */}
                         <Moods moods={this.state.moods} />
                     </Route>
                     <Route exact path="/pick-moods/:id">
@@ -128,21 +156,6 @@ export default class App extends Component {
                                 this.updateSelectedSetInMoods
                             }
                             updateSelectedSet={this.updateSelectedSet}
-                        />
-                    </Route>
-                    <Route exact path="/">
-                        <Link to="/pick-moods">Moods</Link>
-                        <SearchBar
-                            updateSets={this.updateSets}
-                            searchTerm={this.state.searchTerm}
-                            setSearchTerm={this.setSearchTerm}
-                        />
-                        <AllSets
-                            sets={setsFilteredByGenre}
-                            updateSelectedSet={this.updateSelectedSet}
-                            getMoreSets={this.getMoreSets}
-                            setsByGenre={this.setsByGenre}
-                            searchTerm={this.state.searchTerm}
                         />
                     </Route>
                 </BrowserRouter>

@@ -1,12 +1,67 @@
-body {
-    background-color: white;
+* {
+    margin: 0%;
+    /* font-family: "Yesteryear", cursive; */
+    /* font-size: 30px; */
+}
+
+main {
+    margin-bottom: 200px;
+}
+
+button {
+    width: 4em;
+    height: 1.3em;
+    margin: 0.2em;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 0.625em;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    /* left: 10%;  */
+    z-index: 1;
+    overflow: hidden;
+}
+
+button:hover {
+    color: black;
+}
+
+button:after {
+    content: "";
+    background: white;
+    position: absolute;
+    z-index: -1;
+    left: -20%;
+    right: -20%;
+    top: 0;
+    bottom: 0;
+    transform: skewX(-45deg) scale(0, 1);
+    transition: all 0.5s;
+}
+
+button:hover:after {
+    transform: skewX(-45deg) scale(1, 1);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.buttonMiddle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 90px;
 }
 
 .setsHome {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 400px;
     text-align: center;
+    height: 100%;
 }
 
 /* .setsHome {
@@ -16,8 +71,11 @@ body {
 } */
 
 .setHome {
-    border: 2px dotted salmon;
-    height: 60%;
+    background-color: white;
+    border: black solid 2px;
+    padding-bottom: 15px;
+    margin: 2%;
+    box-shadow: 0 2px 6px 0 rgb(0 0 0 / 15%);
 }
 
 .widget {
@@ -34,31 +92,129 @@ body {
     padding-bottom: 0px;
 }
 
-.searchBar {
-    position: absolute;
-    top: 0;
-}
-
 .setCover {
     height: 100px;
     width: 105px;
 }
 
-.genreBox {
+/* .genreBox {
     background-color: black;
     color: white;
     height: 20px;
     width: 70px;
     justify-self: center;
-}
+} */
 
 .tags {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
+    display: flex;
+    justify-content: flex-start;
     text-align: center;
 }
 
 .setMood {
-    border: 2px black solid;
+    background-color: white;
+    border: black solid 2px;
+    padding-bottom: 15px;
+    margin: 2%;
+    height: 25vh;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.moods {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    text-align: center;
+    align-self: center;
+    font-family: "Rubik Puddles", cursive;
+}
+
+.fontMoods {
+    font-family: "Rubik Puddles", cursive;
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 2%;
+}
+
+input {
+    font-size: 25px;
+    color: black;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+}
+
+input:focus {
+    outline: none;
+}
+
+.topBar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.searchBar {
+    align-self: center;
+    position: relative;
+    left: 2%;
+    color: black;
+}
+
+.moodLink {
+    align-self: flex-end;
+    justify-self: flex-end;
+    text-align: center;
+    font-size: 35px;
+    position: relative;
+    right: 5%;
+    font-family: "Rubik Puddles", cursive;
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.title {
+    text-align: center;
+    align-self: center;
+}
+
+.photo {
+    width: 100%;
+}
+
+.genre {
+    border: 3px black solid;
+    width: 99.5%;
+    font-size: 30px;
+    text-align: center;
+}
+
+.moodBar {
+    /* border: 3px black solid; */
+    /* width: 99.5%; */
+    font-size: 50px;
+    margin: 1%;
+    text-align: center;
+    font-family: "Rubik Puddles", cursive;
+}
+
+.textArea {
+    font-family: "Rubik Puddles", cursive;
+    font-size: 30px;
 }
