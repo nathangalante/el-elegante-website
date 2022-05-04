@@ -2,21 +2,20 @@ import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 
 export default function SearchBar(props) {
-    const [initialSets, setInitialSets] = useState("");
+    const [initialSets, setInitialSets] = useState([]);
 
     useEffect(() => {
         fetch("/sets")
             .then((res) => res.json())
             .then(({ rows }) => {
                 setInitialSets(rows);
+                props.updateSets(rows);
             });
     }, []);
 
     useEffect(() => {
         let abort;
-        if (!props.searchTerm) {
-            props.updateSets(initialSets);
-        } else {
+        if (props.searchTerm) {
             console.log("searchterm inside else: ", props.searchTerm);
             fetch(`/find-sets/${props.searchTerm}`)
                 .then((res) => res.json())

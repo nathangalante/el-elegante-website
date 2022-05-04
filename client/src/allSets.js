@@ -1,6 +1,7 @@
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function AllSets(props) {
+    console.log("props on AllSets!!: ", props);
     return (
         <>
             {props.genre && <p className="genre">{props.genre}</p>}
@@ -22,10 +23,7 @@ export default function AllSets(props) {
                                     }
                                 >
                                     <p>{set.name}</p>
-                                    <img
-                                        src={"/ejo02.png"}
-                                        className="setCover"
-                                    />
+                                    <img src={set.image} className="setCover" />
                                 </div>
                                 <div className="tags">
                                     {splittedGenres &&

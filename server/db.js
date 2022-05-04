@@ -65,7 +65,7 @@ exports.getMoodById = (id) => {
 
 exports.getSetsByMood = (moodId) => {
     return db.query(
-        `SELECT podcasts.id, podcasts.name, podcasts.url, podcasts.genre, podcasts.mood, moods.id AS mood_id, moods.mood
+        `SELECT podcasts.id, podcasts.name, podcasts.url, podcasts.image, podcasts.genre, podcasts.mood, moods.id AS mood_id, moods.mood
         FROM podcasts
         JOIN moods
         ON moods.id = podcasts.mood

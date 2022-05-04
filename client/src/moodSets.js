@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 export default function MoodSets(props) {
     const [moodSets, setMoodSets] = useState([]);
     const [moodName, setMoodName] = useState("");
+    console.log("props on MoodSets", props);
 
     let { id } = useParams();
 
@@ -11,7 +12,7 @@ export default function MoodSets(props) {
         fetch(`/mood-sets/${id}`)
             .then((res) => res.json())
             .then((moodSets) => {
-                console.log("moods----====->", moodSets[0].mood);
+                console.log("moods----====->", moodSets);
                 setMoodSets(moodSets);
                 setMoodName(moodSets[0].mood);
             })
@@ -45,13 +46,14 @@ export default function MoodSets(props) {
                                         props.updateSelectedSetInMoods(
                                             moodSet.id,
                                             moodSets,
-                                            moodSet.name
+                                            moodSet.name,
+                                            moodSet.image
                                         );
                                     }}
                                 >
                                     <p>{moodSet.name}</p>
                                     <img
-                                        src={"/dingdong18.png"}
+                                        src={moodSet.image}
                                         className="setCoverMoods"
                                     />
                                 </div>

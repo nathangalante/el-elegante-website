@@ -18,6 +18,7 @@ export default class App extends Component {
             genre: "",
             searchTerm: "",
             moods: [],
+            image: "",
         };
         this.updateSelectedSet = this.updateSelectedSet.bind(this);
         this.updateSets = this.updateSets.bind(this);
@@ -70,6 +71,7 @@ export default class App extends Component {
     }
 
     updateSets(newSet) {
+        console.log("NEWset", newSet);
         this.setState({
             sets: newSet,
         });
@@ -95,8 +97,27 @@ export default class App extends Component {
     setSearchTerm(searchTerm) {
         this.setState({ searchTerm: searchTerm });
     }
+    mouseClickEvents() {
+        const mouseClickEvents = ["mousedown", "click", "mouseup"];
+        function simulateMouseClick(element) {
+            mouseClickEvents.forEach((mouseEventType) =>
+                element.dispatchEvent(
+                    new MouseEvent(mouseEventType, {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true,
+                        buttons: 1,
+                    })
+                )
+            );
+        }
+
+        var element = document.querySelector('div[class="UFIInputContainer"]');
+        simulateMouseClick(element);
+    }
 
     render() {
+        console.log("this state on filtered by genre: ", this.state.sets);
         const setsFilteredByGenre =
             this.state.sets &&
             this.state.sets.filter((set) => {
@@ -127,7 +148,7 @@ export default class App extends Component {
                                 setSearchTerm={this.setSearchTerm}
                             />
                             {/* <Link to="/"> */}
-                            <img src="/rosa7.png" className="titlePhoto" />
+                            <img src="/logo9.jpg" className="titlePhoto" />
                             {/* </Link> */}
                             {/* <div className="title">
                                 <h1>El Elegante Podcast</h1>
@@ -144,6 +165,7 @@ export default class App extends Component {
                             setsByGenre={this.setsByGenre}
                             searchTerm={this.state.searchTerm}
                             genre={this.state.genre}
+                            image={this.state.sets.image}
                         />
                     </Route>
                     <Route exact path="/pick-moods">
