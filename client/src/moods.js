@@ -22,7 +22,9 @@ export default function Moods() {
 
     return (
         <>
-            <p className="fontMoods">Get In the Mood</p>
+            <Link to="/">
+                <p className="fontMoods">Get In the Mood</p>
+            </Link>
             <div className="moods">
                 {moods &&
                     moods.map((mood) => (

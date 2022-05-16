@@ -3,11 +3,9 @@ import { Component } from "react";
 import AllSets from "./allSets";
 import Set from "./set";
 import SearchBar from "./searchBar";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Moods from "./moods";
 import MoodSets from "./moodSets";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
 
 export default class App extends Component {
     constructor(props) {
@@ -135,11 +133,6 @@ export default class App extends Component {
         return (
             <>
                 <BrowserRouter>
-                    {history.reload && (
-                        <Link to="/">
-                            <img src="/elegante2.jpg" className="photo"></img>
-                        </Link>
-                    )}
                     <Route exact path="/">
                         <div className="topBar">
                             <SearchBar
@@ -147,17 +140,21 @@ export default class App extends Component {
                                 searchTerm={this.state.searchTerm}
                                 setSearchTerm={this.setSearchTerm}
                             />
-                            {/* <Link to="/"> */}
-                            <img src="/logo9.jpg" className="titlePhoto" />
-                            {/* </Link> */}
+                            <a href="/">
+                                <img src="/logo9.jpg" className="titlePhoto" />
+                                {/* <img src="/Elegante.png" className="titlePhoto" /> */}
+                            </a>
+
                             {/* <div className="title">
                                 <h1>El Elegante Podcast</h1>
                             </div> */}
 
-                            <div className="moodLink">
+                            <div id="moodLink">
                                 <Link to="/pick-moods">Moods</Link>
                             </div>
                         </div>
+                        <img src="/line2.png" className="line1" />
+                        <img src="/line2.png" className="line2" />
                         <AllSets
                             sets={setsFilteredByGenre}
                             updateSelectedSet={this.updateSelectedSet}

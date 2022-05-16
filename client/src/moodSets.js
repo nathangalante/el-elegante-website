@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function MoodSets(props) {
     const [moodSets, setMoodSets] = useState([]);
@@ -27,7 +28,9 @@ export default function MoodSets(props) {
 
     return (
         <>
-            {moodName && <p className="moodBar">{moodName}</p>}
+            <Link to="/pick-moods">
+                {moodName && <p className="moodBar">{moodName}</p>}
+            </Link>
             <div className="setsHomeMoods">
                 {moodSets &&
                     moodSets.map((moodSet) => {
@@ -51,7 +54,7 @@ export default function MoodSets(props) {
                                         );
                                     }}
                                 >
-                                    <p>{moodSet.name}</p>
+                                    <p className="setTitle">{moodSet.name}</p>
                                     <img
                                         src={moodSet.image}
                                         className="setCoverMoods"

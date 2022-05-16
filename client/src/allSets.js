@@ -4,7 +4,11 @@ export default function AllSets(props) {
     console.log("props on AllSets!!: ", props);
     return (
         <>
-            {props.genre && <p className="genre">{props.genre}</p>}
+            {props.genre && (
+                <div className="overGenre">
+                    <p className="genre">{props.genre}</p>
+                </div>
+            )}
             <div className="setsHome">
                 {props.sets &&
                     props.sets.map((set) => {
@@ -22,7 +26,9 @@ export default function AllSets(props) {
                                         props.updateSelectedSet(set.id)
                                     }
                                 >
-                                    <p>{set.name}</p>
+                                    <div className="titleContainer">
+                                        <p className="setTitle">{set.name}</p>
+                                    </div>
                                     <img src={set.image} className="setCover" />
                                 </div>
                                 <div className="tags">
