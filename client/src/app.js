@@ -141,7 +141,10 @@ export default class App extends Component {
                                 setSearchTerm={this.setSearchTerm}
                             />
                             <a href="/">
-                                <img src="/logo9.jpg" className="titlePhoto" />
+                                <img
+                                    src="/elegante-svg.png"
+                                    className="titlePhoto"
+                                />
                                 {/* <img src="/Elegante.png" className="titlePhoto" /> */}
                             </a>
 
@@ -153,8 +156,6 @@ export default class App extends Component {
                                 <Link to="/pick-moods">Moods</Link>
                             </div>
                         </div>
-                        <img src="/line2.png" className="line1" />
-                        <img src="/line2.png" className="line2" />
                         <AllSets
                             sets={setsFilteredByGenre}
                             updateSelectedSet={this.updateSelectedSet}

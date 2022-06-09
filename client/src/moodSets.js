@@ -16,6 +16,7 @@ export default function MoodSets(props) {
                 console.log("moods----====->", moodSets);
                 setMoodSets(moodSets);
                 setMoodName(moodSets[0].mood);
+                console.log("thisIsMoodSets", moodSets);
             })
             .catch((err) => {
                 console.log(err);

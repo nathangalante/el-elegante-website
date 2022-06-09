@@ -71,7 +71,7 @@ app.get("/mood-sets/:id", (req, res) => {
     console.log("req.params", req.params);
     db.getSetsByMood(id)
         .then(({ rows }) => {
-            console.log("rows in moods-sets/:id!: ", { rows });
+            console.log("rows in moods-sets/:id!: ", rows);
             res.json(rows);
         })
         .catch((err) => {
